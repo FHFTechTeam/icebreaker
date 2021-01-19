@@ -83,7 +83,9 @@ namespace Icebreaker.Services
                 dbMembersCount = dbMembersLookup.Count;
 
                 var pairHistory = await this.dataProvider.GetPairHistoryAsync();
-                (var pastPairs, int lastIteration) = this.ParsePairHistory(pairHistory);
+                var parsed = this.ParsePairHistory(pairHistory);
+                var pastPairs = parsed.Item1;
+                var lastIteration = parsed.Item2;
                 lastIteration++;
 
                 foreach (var team in teams)
