@@ -4,9 +4,11 @@
 
 namespace Icebreaker.Interfaces
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Icebreaker.Helpers;
+    using Microsoft.Bot.Schema;
 
     /// <summary>
     /// Data provider routines
@@ -39,6 +41,14 @@ namespace Icebreaker.Interfaces
         /// <param name="installed">Value that indicates if bot is installed</param>
         /// <returns>Tracking task</returns>
         Task UpdateTeamInstallStatusAsync(TeamInstallInfo team, bool installed);
+
+        /// <summary>
+        /// Adds a pairing.
+        /// </summary>
+        /// <param name="pair">A pairing.</param>
+        /// <param name="lastIteration">Value that indicates the iteration cycle when the pairing happened.</param>
+        /// <returns>Tracking task</returns>
+        Task AddPairAsync(Tuple<ChannelAccount, ChannelAccount> pair, int lastIteration);
 
         /// <summary>
         /// Set the user info for the given user

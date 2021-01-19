@@ -17,6 +17,7 @@ namespace Icebreaker.Helpers
     using Microsoft.Azure.Documents;
     using Microsoft.Azure.Documents.Client;
     using Microsoft.Azure.Documents.Linq;
+    using Microsoft.Bot.Schema;
 
     /// <summary>
     /// Data provider routines
@@ -31,6 +32,7 @@ namespace Icebreaker.Helpers
         private readonly ISecretsHelper secretsHelper;
         private DocumentClient documentClient;
         private Database database;
+        private DocumentCollection pairsCollection;
         private DocumentCollection teamsCollection;
         private DocumentCollection usersCollection;
 
@@ -65,6 +67,26 @@ namespace Icebreaker.Helpers
                 var documentUri = UriFactory.CreateDocumentUri(this.database.Id, this.teamsCollection.Id, team.Id);
                 var response = await this.documentClient.DeleteDocumentAsync(documentUri, new RequestOptions { PartitionKey = new PartitionKey(team.Id) });
             }
+        }
+
+        /// <summary>
+        /// Adds a pairing.
+        /// </summary>
+        /// <param name="pair">A pairing.</param>
+        /// <param name="lastIteration">Value that indicates the iteration cycle when the pairing happened.</param>
+        /// <returns>Tracking task</returns>
+        public async Task AddPairAsync(Tuple<ChannelAccount, ChannelAccount> pair, int lastIteration)
+        {
+            await this.EnsureInitializedAsync();
+
+            var pairInfo = new PairInfo
+            {
+                User1 = pair.Item1,
+                User2 = pair.Item2,
+                Iteration = lastIteration,
+            };
+
+            var response = await this.documentClient.UpsertDocumentAsync(this.pairsCollection.SelfLink, pairInfo);
         }
 
         /// <summary>
@@ -220,6 +242,7 @@ namespace Icebreaker.Helpers
 
             var endpointUrl = CloudConfigurationManager.GetSetting("CosmosDBEndpointUrl");
             var databaseName = CloudConfigurationManager.GetSetting("CosmosDBDatabaseName");
+            var pairsCollectionName = CloudConfigurationManager.GetSetting("CosmosCollectionPairs");
             var teamsCollectionName = CloudConfigurationManager.GetSetting("CosmosCollectionTeams");
             var usersCollectionName = CloudConfigurationManager.GetSetting("CosmosCollectionUsers");
 
@@ -247,6 +270,14 @@ namespace Icebreaker.Helpers
                     throw;
                 }
             }
+
+            // Get a reference to the Pairs collection, creating it if needed
+            var pairCollectionDefinition = new DocumentCollection
+            {
+                Id = teamsCollectionName,
+            };
+            pairCollectionDefinition.PartitionKey.Paths.Add("/id");
+            this.pairsCollection = await this.documentClient.CreateDocumentCollectionIfNotExistsAsync(this.database.SelfLink, pairCollectionDefinition, useSharedOffer ? null : requestOptions);
 
             // Get a reference to the Teams collection, creating it if needed
             var teamsCollectionDefinition = new DocumentCollection

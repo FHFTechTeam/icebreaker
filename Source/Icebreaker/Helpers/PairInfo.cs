@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------------------------------
-// <copyright file="PastPairInfo.cs" company="Microsoft">
+// <copyright file="PairInfo.cs" company="Microsoft">
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 //----------------------------------------------------------------------------------------------
@@ -14,7 +14,7 @@ namespace Icebreaker.Helpers
     /// <summary>
     /// Represents a user
     /// </summary>
-    public class PastPairInfo : Document
+    public class PairInfo : Document
     {
         /// <summary>
         /// Gets or sets one user of a match
