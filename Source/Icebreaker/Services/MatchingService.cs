@@ -96,10 +96,15 @@ namespace Icebreaker.Services
                     {
                         var teamName = await this.conversationHelper.GetTeamNameByIdAsync(this.botAdapter, team);
                         var optedInUsers = await this.GetOptedInUsersAsync(dbMembersLookup, team);
-                        foreach (var pair in this.MakePairs(optedInUsers).Take(this.maxPairUpsPerTeam))
+
+                        // This is to separate iteration cycles and avoid a deadlock
+                        var dummyCA = new ChannelAccount();
+                        var dummyPair = new Tuple<ChannelAccount, ChannelAccount>(dummyCA, dummyCA);
+                        await this.dataProvider.AddPairAsync(dummyPair, lastIteration);
+
+                        foreach (var pair in this.MakePairs(optedInUsers, pastPairs).Take(this.maxPairUpsPerTeam))
                         {
-                            await this.dataProvider.AddPairAsync(pair, 26);
-                            //await this.dataProvider.AddPairAsync(pair, lastIteration);
+                            await this.dataProvider.AddPairAsync(pair, lastIteration);
                             usersNotifiedCount += await this.NotifyPairAsync(team, teamName, pair, default(CancellationToken));
                             pairsNotifiedCount++;
                         }
@@ -225,7 +230,7 @@ namespace Icebreaker.Services
         /// <param name="users">Users accounts</param>
         /// <param name="pastPairs">Pairings from past iterations</param>
         /// <returns>List of pairs</returns>
-        private List<Tuple<ChannelAccount, ChannelAccount>> MakePairs(List<ChannelAccount> users)
+        private List<Tuple<ChannelAccount, ChannelAccount>> MakePairs(List<ChannelAccount> users, Dictionary<ChannelAccount, ChannelAccount> pastPairs)
         {
             if (users.Count > 1)
             {
@@ -249,14 +254,14 @@ namespace Icebreaker.Services
                     continue;
                 }
 
-                for (int j = i; j < users.Count - 1; j++)
+                for (int j = i + 1; j < users.Count - 1; j++)
                 {
-                    //if (pastPairs[users[i]] != pastPairs[users[j]])
-                    //{ // match them
+                    if (pastPairs[users[i]] != pastPairs[users[j]])
+                    { // match them
                         pairs.Add(new Tuple<ChannelAccount, ChannelAccount>(users[i], users[j]));
                         matched.Add(users[i]);
                         matched.Add(users[j]);
-                    //}
+                    }
                 }
             }
 
