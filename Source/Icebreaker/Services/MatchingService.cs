@@ -101,7 +101,6 @@ namespace Icebreaker.Services
                     {
                         var teamName = await this.conversationHelper.GetTeamNameByIdAsync(this.botAdapter, team);
                         var optedInUsers = await this.GetOptedInUsersAsync(dbMembersLookup, team);
-                        
                         foreach (var pair in this.MakePairs(optedInUsers, pastPairs).Take(this.maxPairUpsPerTeam))
                         {
                             await this.dataProvider.AddPairAsync(pair, lastIteration);
@@ -247,7 +246,7 @@ namespace Icebreaker.Services
 
             HashSet<ChannelAccount> matched = new HashSet<ChannelAccount>();
 
-            for (int i = 0; i < users.Count - 1; i++)
+            for (int i = 0; i < users.Count - 2; i++)
             {
                 if (matched.Contains(users[i]))
                 {
@@ -261,6 +260,12 @@ namespace Icebreaker.Services
                         pairs.Add(new Tuple<ChannelAccount, ChannelAccount>(users[i], users[j]));
                         matched.Add(users[i]);
                         matched.Add(users[j]);
+                    }
+                    else
+                    {
+                        var dummyCA = new ChannelAccount();
+                        var dummyPair = new Tuple<ChannelAccount, ChannelAccount>(dummyCA, dummyCA);
+                        this.dataProvider.AddPairAsync(dummyPair, 999);
                     }
                 }
             }
