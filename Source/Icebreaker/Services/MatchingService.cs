@@ -246,14 +246,14 @@ namespace Icebreaker.Services
 
             HashSet<ChannelAccount> matched = new HashSet<ChannelAccount>();
 
-            for (int i = 0; i < users.Count - 2; i++)
+            for (int i = 0; i < users.Count - 1; i++)
             {
                 if (matched.Contains(users[i]))
                 {
                     continue;
                 }
 
-                for (int j = i + 1; j < users.Count - 1; j++)
+                for (int j = i + 1; j < users.Count; j++)
                 {
                     if (!pastPairs.ContainsKey(users[i]) || pastPairs[users[i]] != pastPairs[users[j]])
                     { // match them
