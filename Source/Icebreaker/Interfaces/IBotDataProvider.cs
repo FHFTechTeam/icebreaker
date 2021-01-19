@@ -43,14 +43,6 @@ namespace Icebreaker.Interfaces
         Task UpdateTeamInstallStatusAsync(TeamInstallInfo team, bool installed);
 
         /// <summary>
-        /// Adds a pairing.
-        /// </summary>
-        /// <param name="pair">A pairing.</param>
-        /// <param name="lastIteration">Value that indicates the iteration cycle when the pairing happened.</param>
-        /// <returns>Tracking task</returns>
-        Task AddPairAsync(Tuple<ChannelAccount, ChannelAccount> pair, int lastIteration);
-
-        /// <summary>
         /// Set the user info for the given user
         /// </summary>
         /// <param name="tenantId">Tenant id</param>
@@ -59,5 +51,19 @@ namespace Icebreaker.Interfaces
         /// <param name="serviceUrl">User service URL</param>
         /// <returns>Tracking task</returns>
         Task SetUserInfoAsync(string tenantId, string userId, bool optedIn, string serviceUrl);
+
+        /// <summary>
+        /// Get the pair history.
+        /// </summary>
+        /// <returns>List of past pairings.</returns>
+        Task<IList<PairInfo>> GetPairHistoryAsync();
+
+        /// <summary>
+        /// Adds a pairing.
+        /// </summary>
+        /// <param name="pair">A pairing.</param>
+        /// <param name="lastIteration">Value that indicates the iteration cycle when the pairing happened.</param>
+        /// <returns>Tracking task</returns>
+        Task AddPairAsync(Tuple<ChannelAccount, ChannelAccount> pair, int lastIteration);
     }
 }

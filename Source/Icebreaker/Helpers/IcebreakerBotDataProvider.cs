@@ -70,6 +70,37 @@ namespace Icebreaker.Helpers
         }
 
         /// <summary>
+        /// Get the pair history.
+        /// </summary>
+        /// <returns>List of past pairings.</returns>
+        public async Task<IList<PairInfo>> GetPairHistoryAsync()
+        {
+            await this.EnsureInitializedAsync();
+
+            var pairHistory = new List<PairInfo>();
+
+            try
+            {
+                using (var lookupQuery = this.documentClient
+                    .CreateDocumentQuery<PairInfo>(this.pairsCollection.SelfLink, new FeedOptions { EnableCrossPartitionQuery = true })
+                    .AsDocumentQuery())
+                {
+                    while (lookupQuery.HasMoreResults)
+                    {
+                        var response = await lookupQuery.ExecuteNextAsync<PairInfo>();
+                        pairHistory.AddRange(response);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.telemetryClient.TrackException(ex.InnerException);
+            }
+
+            return pairHistory;
+        }
+
+        /// <summary>
         /// Adds a pairing.
         /// </summary>
         /// <param name="pair">A pairing.</param>

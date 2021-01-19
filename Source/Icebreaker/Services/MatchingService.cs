@@ -82,6 +82,10 @@ namespace Icebreaker.Services
                 var dbMembersLookup = await this.dataProvider.GetAllUsersOptInStatusAsync();
                 dbMembersCount = dbMembersLookup.Count;
 
+                var pairHistory = await this.dataProvider.GetPairHistoryAsync();
+                (var pastPairs, int lastIteration) = this.ParsePairHistory(pairHistory);
+                lastIteration++;
+
                 foreach (var team in teams)
                 {
                     this.telemetryClient.TrackTrace($"Pairing members of team {team.Id}");
@@ -91,9 +95,9 @@ namespace Icebreaker.Services
                         var teamName = await this.conversationHelper.GetTeamNameByIdAsync(this.botAdapter, team);
                         var optedInUsers = await this.GetOptedInUsersAsync(dbMembersLookup, team);
 
-                        foreach (var pair in this.MakePairs(optedInUsers).Take(this.maxPairUpsPerTeam))
+                        foreach (var pair in this.MakePairs(optedInUsers, pastPairs).Take(this.maxPairUpsPerTeam))
                         {
-                            await this.dataProvider.AddPairAsync(pair, 0);
+                            await this.dataProvider.AddPairAsync(pair, lastIteration);
                             usersNotifiedCount += await this.NotifyPairAsync(team, teamName, pair, default(CancellationToken));
                             pairsNotifiedCount++;
                         }
@@ -187,11 +191,39 @@ namespace Icebreaker.Services
         }
 
         /// <summary>
+        /// Parse through pairing history.
+        /// </summary>
+        /// <param name="pairHistory">Information on previous pairings</param>
+        /// <returns>Returns pairs from the most recent pairing phase</returns>
+        private Tuple<Dictionary<ChannelAccount, ChannelAccount>, int> ParsePairHistory(IList<PairInfo> pairHistory)
+        {
+            var recentPairs = new Dictionary<ChannelAccount, ChannelAccount>();
+            var latestIteration = 0;
+
+            foreach (var pair in pairHistory)
+            {
+                latestIteration = (latestIteration >= pair.Iteration) ? latestIteration : pair.Iteration;
+            }
+
+            foreach (var pair in pairHistory)
+            {
+                if (pair.Iteration == latestIteration)
+                {
+                    recentPairs[pair.User1] = pair.User2;
+                    recentPairs[pair.User2] = pair.User1;
+                }
+            }
+
+            return new Tuple<Dictionary<ChannelAccount, ChannelAccount>, int>(recentPairs, latestIteration);
+        }
+
+        /// <summary>
         /// Pair list of users into groups of 2 users per group
         /// </summary>
         /// <param name="users">Users accounts</param>
+        /// <param name="pastPairs">Pairings from past iterations</param>
         /// <returns>List of pairs</returns>
-        private List<Tuple<ChannelAccount, ChannelAccount>> MakePairs(List<ChannelAccount> users)
+        private List<Tuple<ChannelAccount, ChannelAccount>> MakePairs(List<ChannelAccount> users, Dictionary<ChannelAccount, ChannelAccount> pastPairs)
         {
             if (users.Count > 1)
             {
@@ -205,9 +237,26 @@ namespace Icebreaker.Services
             this.Randomize(users);
 
             var pairs = new List<Tuple<ChannelAccount, ChannelAccount>>();
-            for (int i = 0; i < users.Count - 1; i += 2)
+
+            HashSet<ChannelAccount> matched = new HashSet<ChannelAccount>();
+
+            for (int i = 0; i < users.Count - 1; i++)
             {
                 pairs.Add(new Tuple<ChannelAccount, ChannelAccount>(users[i], users[i + 1]));
+                if (matched.Contains(users[i]))
+                {
+                    continue;
+                }
+
+                for (int j = i; j < users.Count - 1; j++)
+                {
+                    if (pastPairs[users[i]] != pastPairs[users[j]])
+                    { // match them
+                        pairs.Add(new Tuple<ChannelAccount, ChannelAccount>(users[i], users[j]));
+                        matched.Add(users[i]);
+                        matched.Add(users[j]);
+                    }
+                }
             }
 
             return pairs;
