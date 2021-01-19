@@ -88,6 +88,11 @@ namespace Icebreaker.Services
                 var lastIteration = parsed.Item2;
                 lastIteration++;
 
+                // This is to separate iteration cycles and avoid a deadlock
+                var dummyCA = new ChannelAccount();
+                var dummyPair = new Tuple<ChannelAccount, ChannelAccount>(dummyCA, dummyCA);
+                await this.dataProvider.AddPairAsync(dummyPair, lastIteration);
+
                 foreach (var team in teams)
                 {
                     this.telemetryClient.TrackTrace($"Pairing members of team {team.Id}");
@@ -96,13 +101,7 @@ namespace Icebreaker.Services
                     {
                         var teamName = await this.conversationHelper.GetTeamNameByIdAsync(this.botAdapter, team);
                         var optedInUsers = await this.GetOptedInUsersAsync(dbMembersLookup, team);
-
-                        // This is to separate iteration cycles and avoid a deadlock
-                        var dummyCA = new ChannelAccount();
-                        var dummyPair = new Tuple<ChannelAccount, ChannelAccount>(dummyCA, dummyCA);
-                        await this.dataProvider.AddPairAsync(dummyPair, lastIteration);
-                        await this.dataProvider.AddPairAsync(dummyPair, 42);
-
+                        
                         foreach (var pair in this.MakePairs(optedInUsers, pastPairs).Take(this.maxPairUpsPerTeam))
                         {
                             await this.dataProvider.AddPairAsync(pair, lastIteration);
