@@ -203,7 +203,7 @@ namespace Icebreaker.Services
         /// <returns>Returns pairs from the most recent pairing phase</returns>
         private Tuple<Dictionary<ChannelAccount, ChannelAccount>, int> ParsePairHistory(IList<PairInfo> pairHistory)
         {
-            var recentPairs = new Dictionary<ChannelAccount, ChannelAccount>();
+            var pastPairs = new Dictionary<ChannelAccount, ChannelAccount>();
             var latestIteration = 0;
 
             foreach (var pair in pairHistory)
@@ -215,12 +215,12 @@ namespace Icebreaker.Services
             {
                 if (pair.Iteration == latestIteration)
                 {
-                    recentPairs[pair.User1] = pair.User2;
-                    recentPairs[pair.User2] = pair.User1;
+                    pastPairs[pair.User1] = pair.User2;
+                    pastPairs[pair.User2] = pair.User1;
                 }
             }
 
-            return new Tuple<Dictionary<ChannelAccount, ChannelAccount>, int>(recentPairs, latestIteration);
+            return new Tuple<Dictionary<ChannelAccount, ChannelAccount>, int>(pastPairs, latestIteration);
         }
 
         /// <summary>
@@ -255,7 +255,7 @@ namespace Icebreaker.Services
 
                 for (int j = i + 1; j < users.Count; j++)
                 {
-                    if (!pastPairs.ContainsKey(users[i]) || pastPairs[users[i]] != pastPairs[users[j]])
+                    if ((!pastPairs.ContainsKey(users[i])) || (pastPairs[users[i]] != pastPairs[users[j]]))
                     { // match them
                         pairs.Add(new Tuple<ChannelAccount, ChannelAccount>(users[i], users[j]));
                         matched.Add(users[i]);
