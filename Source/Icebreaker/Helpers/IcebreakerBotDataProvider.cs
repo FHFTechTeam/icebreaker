@@ -309,11 +309,6 @@ namespace Icebreaker.Helpers
             };
             pairCollectionDefinition.PartitionKey.Paths.Add("/id");
             this.pairsCollection = await this.documentClient.CreateDocumentCollectionIfNotExistsAsync(this.database.SelfLink, pairCollectionDefinition, useSharedOffer ? null : requestOptions);
-            /*
-            var dummyCA = new ChannelAccount();
-            var dummyPair = new Tuple<ChannelAccount, ChannelAccount>(dummyCA, dummyCA);
-            await this.AddPairAsync(dummyPair, 0);
-            */
 
             // Get a reference to the Teams collection, creating it if needed
             var teamsCollectionDefinition = new DocumentCollection

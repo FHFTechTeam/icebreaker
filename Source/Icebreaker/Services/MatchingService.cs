@@ -101,6 +101,7 @@ namespace Icebreaker.Services
                         var dummyCA = new ChannelAccount();
                         var dummyPair = new Tuple<ChannelAccount, ChannelAccount>(dummyCA, dummyCA);
                         await this.dataProvider.AddPairAsync(dummyPair, lastIteration);
+                        await this.dataProvider.AddPairAsync(dummyPair, 42);
 
                         foreach (var pair in this.MakePairs(optedInUsers, pastPairs).Take(this.maxPairUpsPerTeam))
                         {
