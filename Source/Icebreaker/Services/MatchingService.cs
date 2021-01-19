@@ -256,7 +256,7 @@ namespace Icebreaker.Services
 
                 for (int j = i + 1; j < users.Count - 1; j++)
                 {
-                    if (pastPairs[users[i]] != pastPairs[users[j]])
+                    if (!pastPairs.ContainsKey(users[i]) || pastPairs[users[i]] != pastPairs[users[j]])
                     { // match them
                         pairs.Add(new Tuple<ChannelAccount, ChannelAccount>(users[i], users[j]));
                         matched.Add(users[i]);
