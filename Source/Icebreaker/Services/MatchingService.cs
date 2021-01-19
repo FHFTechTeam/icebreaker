@@ -255,17 +255,17 @@ namespace Icebreaker.Services
 
                 for (int j = i + 1; j < users.Count; j++)
                 {
-                    if ((!pastPairs.ContainsKey(users[i])) || (pastPairs[users[i]] != pastPairs[users[j]]))
-                    { // match them
-                        pairs.Add(new Tuple<ChannelAccount, ChannelAccount>(users[i], users[j]));
-                        matched.Add(users[i]);
-                        matched.Add(users[j]);
-                    }
-                    else
+                    if (pastPairs.ContainsKey(users[i]) && pastPairs[users[i]] == users[j])
                     {
                         var dummyCA = new ChannelAccount();
                         var dummyPair = new Tuple<ChannelAccount, ChannelAccount>(dummyCA, dummyCA);
                         this.dataProvider.AddPairAsync(dummyPair, 999);
+                    }
+                    else
+                    {// match them
+                        pairs.Add(new Tuple<ChannelAccount, ChannelAccount>(users[i], users[j]));
+                        matched.Add(users[i]);
+                        matched.Add(users[j]);
                     }
                 }
             }
