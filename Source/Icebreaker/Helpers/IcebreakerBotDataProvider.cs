@@ -274,7 +274,7 @@ namespace Icebreaker.Helpers
             // Get a reference to the Pairs collection, creating it if needed
             var pairCollectionDefinition = new DocumentCollection
             {
-                Id = teamsCollectionName,
+                Id = pairsCollectionName,
             };
             pairCollectionDefinition.PartitionKey.Paths.Add("/id");
             this.pairsCollection = await this.documentClient.CreateDocumentCollectionIfNotExistsAsync(this.database.SelfLink, pairCollectionDefinition, useSharedOffer ? null : requestOptions);
