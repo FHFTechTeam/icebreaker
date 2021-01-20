@@ -154,7 +154,7 @@
     <comment>First part of the match up card main content</comment>
   </data>
   <data name="MatchUpCardContentPart2" xml:space="preserve">
-    <value>If you don't know him or her, then click below to chat direct in Teams or catch up at another time.See, meeting people *is* easy!</value>
+    <value>If you don't know {0}, then click below to chat direct in Teams or catch up at another time. See, meeting people *is* easy!</value>
     <comment>Second part of the match up card main content</comment>
   </data>
   <data name="MatchUpCardMatchedText" xml:space="preserve">
