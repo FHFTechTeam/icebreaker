@@ -55,7 +55,7 @@ namespace Icebreaker.Helpers.AdaptiveCards
             var matchUpCardTitleContent = Resources.MatchUpCardTitleContent;
             var matchUpCardMatchedText = string.Format(Resources.MatchUpCardMatchedText, recipient.Name);
             var matchUpCardContentPart1 = string.Format(Resources.MatchUpCardContentPart1, botDisplayName, teamName, recipient.Name);
-            var matchUpCardContentPart2 = Resources.MatchUpCardContentPart2;
+            var matchUpCardContentPart2 = string.Format(Resources.MatchUpCardContentPart2, recipient.Name);
             var chatWithMatchButtonText = string.Format(Resources.ChatWithMatchButtonText, recipientGivenName);
             var pauseMatchesButtonText = Resources.PausePairingsButtonText;
             var proposeMeetupButtonText = Resources.ProposeMeetupButtonText;
