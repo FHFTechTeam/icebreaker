@@ -5,26 +5,26 @@
   "id": "d55d08d9-bacb-4567-942f-afd85d632dcc",
   "packageName": "com.microsoft.teams.icebreaker",
   "developer": {
-    "name": "<company name>",
-    "websiteUrl": "<website url>",
-    "privacyUrl": "<privacy url>",
-    "termsOfUseUrl": "<terms of use url>"
+    "name": "FHF IT",
+    "websiteUrl": "https://www.hollows.org/",
+    "privacyUrl": "https://www.hollows.org/au/legal-pages/privacy-security",
+    "termsOfUseUrl": "https://www.hollows.org/au/legal-pages/terms-conditions"
   },
   "icons": {
     "color": "color.png",
     "outline": "outline.png"
   },
   "name": {
-    "short": "Icebreaker"
+    "short": "Icebreaker Bot"
   },
   "description": {
     "short": "Icebreaker is a bot that randomly pairs team members up to build team unity.",
-    "full": "Icebreaker is a cute little bot that randomly pairs team members up every week to help the team build trust and personal connections."
+    "full": "Team culture is the glue that holds an organization together. Icebreaker bot foster personal connections by pairing team members up for a meet up every week. The bot will suggest times that are free for both parties and staff can accept the suggested time or date."
   },
-  "accentColor": "#64A2CC",
+  "accentColor": "#EA7600",
   "bots": [
     {
-      "botId": "<bot id>",
+      "botId": "2840bb03-70a5-4e66-b68f-db70e748a050",
       "scopes": [
         "personal",
         "team"
@@ -38,6 +38,6 @@
     "messageTeamMembers"
   ],
   "validDomains": [
-    "<app domain>"
+    "icebreaker-wfafuqssxybis.azurewebsites.net"
   ]
 }
