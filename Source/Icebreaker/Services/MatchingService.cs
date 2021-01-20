@@ -251,7 +251,7 @@ namespace Icebreaker.Services
             {
                 var ca1 = ca.Key;
                 var ca2 = ca.Value;
-                id_to_id[ca1] = ca2;
+                id_to_id[ca1.Id] = ca2.Id;
             }
 
             for (int i = 0; i < users.Count - 1; i++)
@@ -263,7 +263,7 @@ namespace Icebreaker.Services
 
                 for (int j = i + 1; j < users.Count; j++)
                 {
-                    if (id_to_id.ContainsKey(users[i].Id) && id_to_id[users[i].Id] = users[j].Id)
+                    if (id_to_id.ContainsKey(users[i].Id) && id_to_id[users[i].Id] == users[j].Id)
                     {
                         var dummyCA = new ChannelAccount();
                         var dummyPair = new Tuple<ChannelAccount, ChannelAccount>(dummyCA, dummyCA);
