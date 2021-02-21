@@ -126,15 +126,15 @@
     <comment>A generic message that is sent when there is an error occurring</comment>
   </data>
   <data name="InstallMessageKnownInstallerPart1" xml:space="preserve">
-    <value>I'm Icebreaker, an initiative of the Culture Working Group to help people connect across the Foundation.</value>
+    <value>Monday Meetups is a way for us to connect informally and get to know each other across the globe.</value>
     <comment>Install message and also the welcome message when the app installer is known - {0} is the placeholder for the name of the user that has installed the app to the team, and {1} is the placeholder for the name of the team that the app has been installed to</comment>
   </data>
   <data name="InstallMessageKnownInstallerPart2" xml:space="preserve">
-    <value>I'm really a bot in Teams and I can help you meet people by randomly pairing you with someone new every week. You get to make more friends and learn about the people you work with.</value>
+    <value>Microsoft Teams will pair team members up at random for a 15-minute meetup on the first Monday of every Month at 4pm.</value>
     <comment>Part 2 of the install message when the name of the installer is known</comment>
   </data>
   <data name="InstallMessageKnownInstallerPart3" xml:space="preserve">
-    <value>**To meet new people, just hang tight. I'll send you an invite soon. Also look out for invitations coming from other people I may have matched with you.**</value>
+    <value>You can chat right away or make an appointment for another time/day that suits. Staff can opt-out and opt-in at any time.</value>
     <comment>Part 3 of the install message with the name of the installer known</comment>
   </data>
   <data name="InstallMessageUnknownInstallerPart1" xml:space="preserve">
@@ -142,43 +142,43 @@
     <comment>Install message and also the welcome message when the app installer is not known - {0} is the placeholder for the name of the team that the app has been installed to</comment>
   </data>
   <data name="InstallMessageUnknownInstallerPart2" xml:space="preserve">
-    <value>I get to help you meet more people around your organization by randomly pairing you with someone new every week. You get to make more friends and learn about the people you work with. It's a win-win-*win* situation.</value>
+    <value>Monday Meetups is a way for us to connect informally and get to know each other across the globe. Microsoft Teams will pair team members up at random for a 15-minute meetup on the first Monday of every Month at 4pm.</value>
     <comment>Part 2 of the install message when the name of the installer is not known</comment>
   </data>
   <data name="InstallMessageUnknownInstallerPart3" xml:space="preserve">
-    <value>**To meet new people, just hang tight. I'll send you an invite soon.**</value>
+    <value>You can chat right away or make an appointment for another time/day that suits. Staff can opt-out and opt-in at any time.</value>
     <comment>Part 3 of the install message when the name of the installer is not known</comment>
   </data>
   <data name="MatchUpCardContentPart1" xml:space="preserve">
-    <value>Hi there again, I'm {0} in {1}, an initiative of the culture working group to help people connect across the Foundation. This week your match is {2}.</value>
+    <value>Hi there, I'm your {0} in {1}, helping to connect people across The Foundation. This week your Meetup is with {2}.</value>
     <comment>First part of the match up card main content</comment>
   </data>
   <data name="MatchUpCardContentPart2" xml:space="preserve">
-    <value>If you don't know {0}, then click below to chat direct in Teams or catch up at another time. See, meeting people *is* easy!</value>
+    <value>If you don't know {0}, or even if you do, click below to chat right now or propose another time for your Meetup. It’s a great way to meet and get to know new people at work!</value>
     <comment>Second part of the match up card main content</comment>
   </data>
   <data name="MatchUpCardMatchedText" xml:space="preserve">
-    <value>You've been matched with {0}.</value>
+    <value>You've been paired with {0}.</value>
     <comment>The text saying who the user has been matched up with</comment>
   </data>
   <data name="MatchUpCardTitleContent" xml:space="preserve">
-    <value>It's time for a match!</value>
+    <value>It’s time for a Monday Meetup</value>
     <comment>The title text for the pairup notification adaptive card</comment>
   </data>
   <data name="MeetupContent" xml:space="preserve">
-    <value>Hey there, looks like we've been matched by {0} this week. It'd be great to meet if you’ve got time?</value>
+    <value>Hey there, looks like we've been paired by {0} today. It'd be great to meet you if you have time?</value>
     <comment>Content of the Meetup for the propose meeting</comment>
   </data>
   <data name="MeetupTitle" xml:space="preserve">
-    <value>Icebreaker catch up - {0} / {1}</value>
+    <value>Monday Meetup - {0} / {1}</value>
     <comment>The title for the Meetup - {0} is the name of the first person that user has been matched with and {1} is the name of the user</comment>
   </data>
   <data name="OptInConfirmation" xml:space="preserve">
-    <value>Welcome back! You've been missed. I've restarted your matches. Have fun!</value>
+    <value>Welcome back! You've been missed. I've restarted your Monday Meetup. Have fun!</value>
     <comment>The confirmation reply that is sent when the user resumes the matches</comment>
   </data>
   <data name="OptOutConfirmation" xml:space="preserve">
-    <value>All set. I've paused your matches. You can turn them back on whenever you like.</value>
+    <value>All set. Your Monday Meetup is paused. You can turn them back on whenever you like.</value>
     <comment>The confirmation reply that is sent when the user pauses all matches</comment>
   </data>
   <data name="PausePairingsButtonText" xml:space="preserve">
