@@ -150,7 +150,7 @@
     <comment>Part 3 of the install message when the name of the installer is not known</comment>
   </data>
   <data name="MatchUpCardContentPart1" xml:space="preserve">
-    <value>Hi there, I'm your {0} in {1}, helping to connect people across The Foundation. This week your Meetup is with {2}.</value>
+    <value>Hi there, I'm Monday Meetup, helping to connect people across The Foundation. This week your Meetup is with {2}.</value>
     <comment>First part of the match up card main content</comment>
   </data>
   <data name="MatchUpCardContentPart2" xml:space="preserve">
@@ -166,7 +166,7 @@
     <comment>The title text for the pairup notification adaptive card</comment>
   </data>
   <data name="MeetupContent" xml:space="preserve">
-    <value>Hey there, looks like we've been paired by {0} today. It'd be great to meet you if you have time?</value>
+    <value>Hey there, looks like we've been paired for a Meetup today. It'd be great to meet you if you have time?</value>
     <comment>Content of the Meetup for the propose meeting</comment>
   </data>
   <data name="MeetupTitle" xml:space="preserve">
