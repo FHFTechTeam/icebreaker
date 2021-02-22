@@ -5,7 +5,7 @@
   "id": "d55d08d9-bacb-4567-942f-afd85d632dcc",
   "packageName": "com.microsoft.teams.icebreaker",
   "developer": {
-    "name": "FHF IT",
+    "name": "FHF",
     "websiteUrl": "https://www.hollows.org/",
     "privacyUrl": "https://www.hollows.org/au/legal-pages/privacy-security",
     "termsOfUseUrl": "https://www.hollows.org/au/legal-pages/terms-conditions"
@@ -15,16 +15,16 @@
     "outline": "outline.png"
   },
   "name": {
-    "short": "Icebreaker Bot"
+    "short": "Monday Meetup"
   },
   "description": {
-    "short": "Icebreaker is a bot that randomly pairs team members up to build team unity.",
-    "full": "Team culture is the glue that holds an organization together. Icebreaker bot foster personal connections by pairing team members up for a meet up every week. The bot will suggest times that are free for both parties and staff can accept the suggested time or date."
+    "short": "Monday Meetups is a way for us to connect informally.",
+    "full": "Microsoft Teams will pair team members up at random for a 15-minute meetup on the first Monday of every Month at 4pm. You can chat right away or make an appointment for another time/day that suits. Staff can opt-out and opt-in at any time."
   },
   "accentColor": "#EA7600",
   "bots": [
     {
-      "botId": "2840bb03-70a5-4e66-b68f-db70e748a050",
+      "botId": "deece795-9567-4396-9893-e906ff9a08f5",
       "scopes": [
         "personal",
         "team"
@@ -38,6 +38,6 @@
     "messageTeamMembers"
   ],
   "validDomains": [
-    "icebreaker-wfafuqssxybis.azurewebsites.net"
+    "icebreaker-vu3bxcxby56ua.azurewebsites.net"
   ]
 }
